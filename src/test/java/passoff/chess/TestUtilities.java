@@ -45,7 +45,7 @@ public class TestUtilities {
 
     public static ChessBoard loadBoard(String boardText) {
         var board = new ChessBoard();
-        int row = 8;
+        int row = 10;
         int column = 1;
         for (var c : boardText.toCharArray()) {
             switch (c) {
