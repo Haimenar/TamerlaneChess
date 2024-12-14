@@ -108,78 +108,102 @@ public class ChessPiece {
     /**
      * @return ArrayList of all positions this chess piece can move to
      */
-    public ArrayList<ChessMove> kingMoves(ChessBoard board, ChessPosition piecePosition) {
+    private ArrayList<ChessMove> kingMoves(ChessBoard board, ChessPosition piecePosition) {
         throw new RuntimeException("Not implemented");
     }
 
     /**
      * @return ArrayList of all positions this chess piece can move to
      */
-    public ArrayList<ChessMove> counsellorMoves(ChessBoard board, ChessPosition piecePosition) {
+    private ArrayList<ChessMove> counsellorMoves(ChessBoard board, ChessPosition piecePosition) {
         throw new RuntimeException("Not implemented");
     }
 
     /**
      * @return ArrayList of all positions this chess piece can move to
      */
-    public ArrayList<ChessMove> vizierMoves(ChessBoard board, ChessPosition piecePosition) {
+    private ArrayList<ChessMove> vizierMoves(ChessBoard board, ChessPosition piecePosition) {
         throw new RuntimeException("Not implemented");
     }
 
     /**
      * @return ArrayList of all positions this chess piece can move to
      */
-    public ArrayList<ChessMove> giraffeMoves(ChessBoard board, ChessPosition piecePosition) {
+    private ArrayList<ChessMove> giraffeMoves(ChessBoard board, ChessPosition piecePosition) {
         throw new RuntimeException("Not implemented");
     }
 
     /**
      * @return ArrayList of all positions this chess piece can move to
      */
-    public ArrayList<ChessMove> picketMoves(ChessBoard board, ChessPosition piecePosition) {
+    private ArrayList<ChessMove> picketMoves(ChessBoard board, ChessPosition piecePosition) {
         throw new RuntimeException("Not implemented");
     }
 
     /**
      * @return ArrayList of all positions this chess piece can move to
      */
-    public ArrayList<ChessMove> knightMoves(ChessBoard board, ChessPosition piecePosition) {
+    private ArrayList<ChessMove> knightMoves(ChessBoard board, ChessPosition piecePosition) {
         throw new RuntimeException("Not implemented");
     }
 
     /**
      * @return ArrayList of all positions this chess piece can move to
      */
-    public ArrayList<ChessMove> rookMoves(ChessBoard board, ChessPosition piecePosition) {
+    private ArrayList<ChessMove> rookMoves(ChessBoard board, ChessPosition piecePosition) {
         throw new RuntimeException("Not implemented");
     }
 
     /**
      * @return ArrayList of all positions this chess piece can move to
      */
-    public ArrayList<ChessMove> elephantMoves(ChessBoard board, ChessPosition piecePosition) {
+    private ArrayList<ChessMove> elephantMoves(ChessBoard board, ChessPosition piecePosition) {
         throw new RuntimeException("Not implemented");
     }
 
     /**
      * @return ArrayList of all positions this chess piece can move to
      */
-    public ArrayList<ChessMove> camelMoves(ChessBoard board, ChessPosition piecePosition) {
+    private ArrayList<ChessMove> camelMoves(ChessBoard board, ChessPosition piecePosition) {
         throw new RuntimeException("Not implemented");
     }
 
     /**
      * @return ArrayList of all positions this chess piece can move to
      */
-    public ArrayList<ChessMove> warEngineMoves(ChessBoard board, ChessPosition piecePosition) {
+    private ArrayList<ChessMove> warEngineMoves(ChessBoard board, ChessPosition piecePosition) {
         throw new RuntimeException("Not implemented");
     }
 
     /**
      * @return ArrayList of all positions this chess piece can move to
      */
-    public ArrayList<ChessMove> pawnMoves(ChessBoard board, ChessPosition piecePosition) {
+    private ArrayList<ChessMove> pawnMoves(ChessBoard board, ChessPosition piecePosition) {
         throw new RuntimeException("Not implemented");
+    }
+
+    /**
+     * @return boolean of the colors of two positions
+     * true if they are different colors, false if they are the same color
+     */
+    private boolean isDifferentColor(ChessBoard board, ChessPosition pos1, ChessPosition pos2) {
+        return board.getPiece(pos1).getTeamColor() == board.getPiece(pos2).getTeamColor();
+    }
+
+    /**
+     * @return boolean of if there is no piece on the selected position
+     */
+    private boolean isEmptySquare(ChessBoard board, ChessPosition position) {
+        return board.getPiece(position).getPieceType() == null;
+    }
+
+    /**
+     * @return boolean of if the position is on the board
+     */
+    private boolean isValidPosition(ChessPosition position) {
+        int row = position.getRow();
+        int col = position.getColumn();
+        return(row >= 1 && row <= 10 && col >= 1 && col <= 11);
     }
 
 
