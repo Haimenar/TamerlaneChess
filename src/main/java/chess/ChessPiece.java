@@ -205,6 +205,4 @@ public class ChessPiece {
         int col = position.getColumn();
         return(row >= 1 && row <= 10 && col >= 1 && col <= 11);
     }
-
-
 }
