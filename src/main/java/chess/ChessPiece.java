@@ -1,5 +1,6 @@
 package chess;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -7,7 +8,14 @@ import java.util.Collection;
  */
 public class ChessPiece {
 
-    public ChessPiece(ChessGame.TeamColor pieceColor, ChessPiece.PieceType type) {
+    private final ChessGame.TeamColor pieceColor;
+    private final PieceType type;
+    private final PawnType pawnInherit;
+
+    public ChessPiece(ChessGame.TeamColor pieceColor, ChessPiece.PieceType type, ChessPiece.PawnType pawnInherit) {
+        this.pieceColor = pieceColor;
+        this.type = type;
+        this.pawnInherit = pawnInherit;
     }
 
     /**
@@ -26,20 +34,40 @@ public class ChessPiece {
         WARENGINE,
         PAWN
     }
+    public enum PawnType {
+        NULL,
+        KING,
+        COUNSELLOR,
+        VIZIER,
+        GIRAFFE,
+        PICKET,
+        KNIGHT,
+        ROOK,
+        ELEPHANT,
+        CAMEL,
+        WARENGINE,
+        PAWN
+    }
 
     /**
      * @return Which team this chess piece belongs to
      */
     public ChessGame.TeamColor getTeamColor() {
-        throw new RuntimeException("Not implemented");
+        return pieceColor;
     }
 
     /**
      * @return which type of chess piece this piece is
      */
     public PieceType getPieceType() {
-        throw new RuntimeException("Not implemented");
+        return type;
     }
+
+    /**
+     * @return which type of piece a pawn promotes to
+     * Is NULL if it isn't a pawn
+     */
+    public PawnType getPawnType() {return pawnInherit;}
 
     /**
      * Calculates all the positions a chess piece can move to
@@ -48,7 +76,111 @@ public class ChessPiece {
      *
      * @return Collection of valid moves
      */
-    public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
+    public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition piecePosition) {
+        if (type == PieceType.KING){
+            return kingMoves(board, piecePosition);
+        } else if (type == PieceType.COUNSELLOR){
+            return counsellorMoves(board, piecePosition);
+        } else if (type == PieceType.VIZIER){
+            return vizierMoves(board, piecePosition);
+        } else if (type == PieceType.GIRAFFE){
+            return giraffeMoves(board, piecePosition);
+        } else if (type == PieceType.PICKET){
+            return picketMoves(board, piecePosition);
+        } else if (type == PieceType.KNIGHT){
+            return knightMoves(board, piecePosition);
+        } else if (type == PieceType.ROOK){
+            return rookMoves(board, piecePosition);
+        } else if (type == PieceType.ELEPHANT){
+            return elephantMoves(board, piecePosition);
+        } else if (type == PieceType.CAMEL){
+            return camelMoves(board, piecePosition);
+        } else if (type == PieceType.WARENGINE){
+            return warEngineMoves(board, piecePosition);
+        } else if (type == PieceType.PAWN){
+            return pawnMoves(board, piecePosition);
+        } else {
+            throw new RuntimeException("Piece not implemented");
+        }
+
+    }
+
+    /**
+     * @return ArrayList of all positions this chess piece can move to
+     */
+    public ArrayList<ChessMove> kingMoves(ChessBoard board, ChessPosition piecePosition) {
         throw new RuntimeException("Not implemented");
     }
+
+    /**
+     * @return ArrayList of all positions this chess piece can move to
+     */
+    public ArrayList<ChessMove> counsellorMoves(ChessBoard board, ChessPosition piecePosition) {
+        throw new RuntimeException("Not implemented");
+    }
+
+    /**
+     * @return ArrayList of all positions this chess piece can move to
+     */
+    public ArrayList<ChessMove> vizierMoves(ChessBoard board, ChessPosition piecePosition) {
+        throw new RuntimeException("Not implemented");
+    }
+
+    /**
+     * @return ArrayList of all positions this chess piece can move to
+     */
+    public ArrayList<ChessMove> giraffeMoves(ChessBoard board, ChessPosition piecePosition) {
+        throw new RuntimeException("Not implemented");
+    }
+
+    /**
+     * @return ArrayList of all positions this chess piece can move to
+     */
+    public ArrayList<ChessMove> picketMoves(ChessBoard board, ChessPosition piecePosition) {
+        throw new RuntimeException("Not implemented");
+    }
+
+    /**
+     * @return ArrayList of all positions this chess piece can move to
+     */
+    public ArrayList<ChessMove> knightMoves(ChessBoard board, ChessPosition piecePosition) {
+        throw new RuntimeException("Not implemented");
+    }
+
+    /**
+     * @return ArrayList of all positions this chess piece can move to
+     */
+    public ArrayList<ChessMove> rookMoves(ChessBoard board, ChessPosition piecePosition) {
+        throw new RuntimeException("Not implemented");
+    }
+
+    /**
+     * @return ArrayList of all positions this chess piece can move to
+     */
+    public ArrayList<ChessMove> elephantMoves(ChessBoard board, ChessPosition piecePosition) {
+        throw new RuntimeException("Not implemented");
+    }
+
+    /**
+     * @return ArrayList of all positions this chess piece can move to
+     */
+    public ArrayList<ChessMove> camelMoves(ChessBoard board, ChessPosition piecePosition) {
+        throw new RuntimeException("Not implemented");
+    }
+
+    /**
+     * @return ArrayList of all positions this chess piece can move to
+     */
+    public ArrayList<ChessMove> warEngineMoves(ChessBoard board, ChessPosition piecePosition) {
+        throw new RuntimeException("Not implemented");
+    }
+
+    /**
+     * @return ArrayList of all positions this chess piece can move to
+     */
+    public ArrayList<ChessMove> pawnMoves(ChessBoard board, ChessPosition piecePosition) {
+        throw new RuntimeException("Not implemented");
+    }
+
+
 }
