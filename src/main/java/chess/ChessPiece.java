@@ -165,7 +165,27 @@ public class ChessPiece {
      * @return ArrayList of all positions this chess piece can move to
      */
     private ArrayList<ChessMove> knightMoves(ChessBoard board, ChessPosition startPosition) {
-        throw new RuntimeException("Not implemented");
+        ArrayList<ChessMove> moves = new ArrayList<>();
+        int row = startPosition.getRow();
+        int col = startPosition.getColumn();
+        int[][] spots = {{2,1}, {-2,1}, {2,-1}, {-2,-1}, {1,2}, {-1,2}, {1,-2}, {-1,-2}};
+
+        for(int[] spot : spots){
+            int x = spot[0];
+            int y = spot[1];
+            ChessPosition newPosition = new ChessPosition(row + x, col + y);
+
+            boolean validPosition = isValidPosition(newPosition);
+            boolean emptyPosition = isEmptySquare(board, newPosition);
+
+            if (validPosition) {
+                // A move to a valid position may be made if it is empty or an opposing piece
+                if (emptyPosition || isDifferentColor(board, startPosition, newPosition)){
+                    moves.add(new ChessMove(startPosition, newPosition, null));
+                }
+            }
+        }
+        return moves;
     }
 
     /**
@@ -186,7 +206,27 @@ public class ChessPiece {
      * @return ArrayList of all positions this chess piece can move to
      */
     private ArrayList<ChessMove> camelMoves(ChessBoard board, ChessPosition startPosition) {
-        throw new RuntimeException("Not implemented");
+        ArrayList<ChessMove> moves = new ArrayList<>();
+        int row = startPosition.getRow();
+        int col = startPosition.getColumn();
+        int[][] spots = {{3,1}, {-3,1}, {3,-1}, {-3,-1}, {1,3}, {-1,3}, {1,-3}, {-1,-3}};
+
+        for(int[] spot : spots){
+            int x = spot[0];
+            int y = spot[1];
+            ChessPosition newPosition = new ChessPosition(row + x, col + y);
+
+            boolean validPosition = isValidPosition(newPosition);
+            boolean emptyPosition = isEmptySquare(board, newPosition);
+
+            if (validPosition) {
+                // A move to a valid position may be made if it is empty or an opposing piece
+                if (emptyPosition || isDifferentColor(board, startPosition, newPosition)){
+                    moves.add(new ChessMove(startPosition, newPosition, null));
+                }
+            }
+        }
+        return moves;
     }
 
     /**
