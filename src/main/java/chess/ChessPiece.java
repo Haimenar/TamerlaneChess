@@ -109,7 +109,28 @@ public class ChessPiece {
      * @return ArrayList of all positions this chess piece can move to
      */
     private ArrayList<ChessMove> kingMoves(ChessBoard board, ChessPosition startPosition) {
-        throw new RuntimeException("Not implemented");
+        ArrayList<ChessMove> moves = new ArrayList<>();
+        int row = startPosition.getRow();
+        int col = startPosition.getColumn();
+
+        for (int x = -1; x < 2; x++) {
+            for (int y = -1; y < 2; y++) {
+                if (!(x == 0 && y == 0)){
+                    ChessPosition newPosition = new ChessPosition(row + x, col + y);
+
+                    boolean validPosition = isValidPosition(newPosition);
+                    boolean emptyPosition = isEmptySquare(board, newPosition);
+
+                    if (validPosition) {
+                        // A move to a valid position may be made if it is empty or an opposing piece
+                        if (emptyPosition || isDifferentColor(board, startPosition, newPosition)){
+                            moves.add(new ChessMove(startPosition, newPosition, null));
+                        }
+                    }
+                }
+            }
+        }
+        return moves;
     }
 
     /**
@@ -177,7 +198,32 @@ public class ChessPiece {
      * @return ArrayList of all positions this chess piece can move to
      */
     private ArrayList<ChessMove> picketMoves(ChessBoard board, ChessPosition startPosition) {
-        throw new RuntimeException("Not implemented");
+        ArrayList<ChessMove> moves = new ArrayList<>();
+        int row = startPosition.getRow();
+        int col = startPosition.getColumn();
+        int[][] direction = {{1,1}, {-1,1}, {1,-1}, {-1,-1}};
+
+        for(int[] dir : direction){
+            int x = dir[0];
+            int y = dir[1];
+            ChessPosition newPosition = new ChessPosition(row + x, col + y);
+
+            while(isValidPosition(newPosition) && board.getPiece(newPosition) == null){
+                //The Picket can only move more than one space at a time
+                if (x * y != 1 || x*y != -1) {
+                    moves.add(new ChessMove(startPosition, newPosition, null));
+                }
+
+                x += dir[0];
+                y += dir[1];
+                newPosition = new ChessPosition(row + x, col + y);
+            }
+
+            if (isValidPosition(newPosition) && isDifferentColor(board, startPosition, newPosition)){
+                moves.add(new ChessMove(startPosition, newPosition, null));
+            }
+        }
+        return moves;
     }
 
     /**
