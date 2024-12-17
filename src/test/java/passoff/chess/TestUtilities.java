@@ -38,7 +38,7 @@ public class TestUtilities {
             entry('r', ChessPiece.PieceType.ROOK),
             entry('e', ChessPiece.PieceType.ELEPHANT),
             entry('m', ChessPiece.PieceType.CAMEL),
-            entry('w', ChessPiece.PieceType.WARENGINE),
+            entry('w', ChessPiece.PieceType.WARMACHINE),
             entry('o', ChessPiece.PieceType.PAWN)
     );
 

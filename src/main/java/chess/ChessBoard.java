@@ -48,7 +48,7 @@ public class ChessBoard {
 
             ChessPiece.PieceType[] backRowPieces =
                     {ChessPiece.PieceType.ELEPHANT, ChessPiece.PieceType.CAMEL,
-                    ChessPiece.PieceType.WARENGINE, ChessPiece.PieceType.WARENGINE,
+                    ChessPiece.PieceType.WARMACHINE, ChessPiece.PieceType.WARMACHINE,
                             ChessPiece.PieceType.CAMEL, ChessPiece.PieceType.ELEPHANT};
             int x = 1;
             int y = 1;
@@ -75,7 +75,7 @@ public class ChessBoard {
 
             //White Pawns
             ChessPiece.PieceType[] pawnTypeArray =
-                    {ChessPiece.PieceType.PAWN, ChessPiece.PieceType.WARENGINE,
+                    {ChessPiece.PieceType.PAWN, ChessPiece.PieceType.WARMACHINE,
                             ChessPiece.PieceType.CAMEL, ChessPiece.PieceType.ELEPHANT,
                             ChessPiece.PieceType.COUNSELLOR, ChessPiece.PieceType.KING,
                             ChessPiece.PieceType.VIZIER, ChessPiece.PieceType.GIRAFFE,

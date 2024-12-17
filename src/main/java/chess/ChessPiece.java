@@ -2,6 +2,7 @@ package chess;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 
 /**
  * Represents a single chess piece
@@ -18,6 +19,28 @@ public class ChessPiece {
         this.pawnInherit = pawnInherit;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ChessPiece piece = (ChessPiece) o;
+        return pieceColor == piece.pieceColor && type == piece.type && pawnInherit == piece.pawnInherit;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(pieceColor, type, pawnInherit);
+    }
+
+    @Override
+    public String toString() {
+        return "ChessPiece{" +
+                "Color=" + pieceColor +
+                ", type=" + type +
+                ", pawnInherit=" + pawnInherit +
+                '}';
+    }
+
     /**
      * The various different chess piece options
      */
@@ -31,7 +54,7 @@ public class ChessPiece {
         ROOK,
         ELEPHANT,
         CAMEL,
-        WARENGINE,
+        WARMACHINE,
         PAWN
     }
 
@@ -63,31 +86,20 @@ public class ChessPiece {
      * @return Collection of valid moves
      */
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition piecePosition) {
-        if (type == PieceType.KING){
-            return kingMoves(board, piecePosition);
-        } else if (type == PieceType.COUNSELLOR){
-            return counsellorMoves(board, piecePosition);
-        } else if (type == PieceType.VIZIER){
-            return vizierMoves(board, piecePosition);
-        } else if (type == PieceType.GIRAFFE){
-            return giraffeMoves(board, piecePosition);
-        } else if (type == PieceType.PICKET){
-            return picketMoves(board, piecePosition);
-        } else if (type == PieceType.KNIGHT){
-            return knightMoves(board, piecePosition);
-        } else if (type == PieceType.ROOK){
-            return rookMoves(board, piecePosition);
-        } else if (type == PieceType.ELEPHANT){
-            return elephantMoves(board, piecePosition);
-        } else if (type == PieceType.CAMEL){
-            return camelMoves(board, piecePosition);
-        } else if (type == PieceType.WARENGINE){
-            return warEngineMoves(board, piecePosition);
-        } else if (type == PieceType.PAWN){
-            return pawnMoves(board, piecePosition);
-        } else {
-            throw new RuntimeException("Piece not implemented");
-        }
+        return switch (type) {
+            case KING -> kingMoves(board, piecePosition);
+            case COUNSELLOR -> counsellorMoves(board, piecePosition);
+            case VIZIER -> vizierMoves(board, piecePosition);
+            case GIRAFFE -> giraffeMoves(board, piecePosition);
+            case PICKET -> picketMoves(board, piecePosition);
+            case KNIGHT -> knightMoves(board, piecePosition);
+            case ROOK -> rookMoves(board, piecePosition);
+            case ELEPHANT -> elephantMoves(board, piecePosition);
+            case CAMEL -> camelMoves(board, piecePosition);
+            case WARMACHINE -> warMachineMoves(board, piecePosition);
+            case PAWN -> pawnMoves(board, piecePosition);
+            case null, default -> throw new RuntimeException("Piece not implemented");
+        };
 
     }
 
@@ -354,7 +366,7 @@ public class ChessPiece {
     /**
      * @return ArrayList of all positions this chess piece can move to
      */
-    private ArrayList<ChessMove> warEngineMoves(ChessBoard board, ChessPosition startPosition) {
+    private ArrayList<ChessMove> warMachineMoves(ChessBoard board, ChessPosition startPosition) {
         ArrayList<ChessMove> moves = new ArrayList<>();
         int row = startPosition.getRow();
         int col = startPosition.getColumn();

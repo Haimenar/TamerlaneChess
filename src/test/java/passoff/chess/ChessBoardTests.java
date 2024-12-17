@@ -41,7 +41,7 @@ public class ChessBoardTests {
                 | | | | | | | | | | | |
                 | | | | | | | | | | | |
                 | | | | | | | | | | | |
-                |o|o|o|o|o|o|o|o|o|o|o|
+                |O|O|O|O|O|O|O|O|O|O|O|
                 |R|L|P|G|C|K|V|F|P|L|R|
                 |E| |M| |W| |W| |M| |E|
                 """);
