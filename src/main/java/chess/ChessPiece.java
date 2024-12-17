@@ -177,7 +177,44 @@ public class ChessPiece {
      * @return ArrayList of all positions this chess piece can move to
      */
     private ArrayList<ChessMove> giraffeMoves(ChessBoard board, ChessPosition startPosition) {
-        throw new RuntimeException("Not implemented");
+        ArrayList<ChessMove> moves = new ArrayList<>();
+        int row = startPosition.getRow();
+        int col = startPosition.getColumn();
+
+        // Iterate through each corner
+        for (int x = -1; x < 2; x += 2) {
+            for (int y = -1; y < 2; y += 2) {
+
+                // For a giraffe to move, two spaces must be open: one adjacent and one diagonal
+                ChessPosition diagonalSquare = new ChessPosition(row + x, col + y);
+                ChessPosition adjacentSquare1 = new ChessPosition(row, col + y);
+                ChessPosition adjacentSquare2 = new ChessPosition(row + x, col);
+
+                if (isEmptySquare(board, diagonalSquare) && (isEmptySquare(board, adjacentSquare1) || isEmptySquare(board, adjacentSquare2))) {
+                    // From each corner, the giraffe moves at least 3 spaces out horizontally or vertically
+                    //The horizontal and vertical directions are one direction facing away from the starting square
+                    int[][] direction = {{x,0}, {0,y}};
+                    for(int[] dir : direction){
+                        int i = dir[0];
+                        int j = dir[1];
+                        ChessPosition newPosition = new ChessPosition(row + x + i, col + y + j);
+
+                        while(isValidPosition(newPosition) && board.getPiece(newPosition) == null){
+                            // The Giraffe must move at least 3 spaces
+                            if (i >= 3 || j>= 3) {
+                                moves.add(new ChessMove(startPosition, newPosition, null));
+                            }
+
+                            i += dir[0];
+                            j += dir[1];
+                            newPosition = new ChessPosition(row + x, col + y);
+                        }
+                    }
+                }
+
+            }
+        }
+        return moves;
     }
 
     /**
@@ -195,18 +232,16 @@ public class ChessPiece {
             ChessPosition newPosition = new ChessPosition(row + x, col + y);
 
             while(isValidPosition(newPosition) && board.getPiece(newPosition) == null){
-                //The Picket can only move more than one space at a time
-                if (x * y != 1 || x*y != -1) {
+                // The Picket can only move more than one space at a time
+                // Since x and y are always incremented together, so
+                // if their product is not 1 or -1, the piece will move more than one space
+                if (x*y != 1 || x*y != -1) {
                     moves.add(new ChessMove(startPosition, newPosition, null));
                 }
 
                 x += dir[0];
                 y += dir[1];
                 newPosition = new ChessPosition(row + x, col + y);
-            }
-
-            if (isValidPosition(newPosition) && isDifferentColor(board, startPosition, newPosition)){
-                moves.add(new ChessMove(startPosition, newPosition, null));
             }
         }
         return moves;
@@ -259,12 +294,9 @@ public class ChessPiece {
                 y += dir[1];
                 newPosition = new ChessPosition(row + x, col + y);
             }
-
-            if (isValidPosition(newPosition) && isDifferentColor(board, startPosition, newPosition)){
-                moves.add(new ChessMove(startPosition, newPosition, null));
-            }
         }
-        return moves;    }
+        return moves;
+    }
 
     /**
      * @return ArrayList of all positions this chess piece can move to
