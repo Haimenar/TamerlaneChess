@@ -281,12 +281,8 @@ public class ChessPiece {
             int y = spot[1];
             ChessPosition newPosition = new ChessPosition(row + x, col + y);
 
-            boolean validPosition = isValidPosition(newPosition);
-            boolean emptyPosition = isEmptySquare(board, newPosition);
-
-            if (validPosition) {
-                // A move to a valid position may be made if it is empty or an opposing piece
-                if (emptyPosition || isDifferentColor(board, startPosition, newPosition)){
+            if(isValidPosition(newPosition)) {
+                if (isEmptySquare(board, newPosition) || ((!isEmptySquare(board, newPosition) && isDifferentColor(board, startPosition, newPosition)))){
                     moves.add(new ChessMove(startPosition, newPosition, null));
                 }
             }
@@ -308,7 +304,7 @@ public class ChessPiece {
             int y = dir[1];
             ChessPosition newPosition = new ChessPosition(row + x, col + y);
 
-            while(isValidPosition(newPosition) && board.getPiece(newPosition) == null){
+            while(isValidPosition(newPosition) && isEmptySquare(board, newPosition)){
                 moves.add(new ChessMove(startPosition, newPosition, null));
                 x += dir[0];
                 y += dir[1];
@@ -362,10 +358,9 @@ public class ChessPiece {
             int y = spot[1];
             ChessPosition newPosition = new ChessPosition(row + x, col + y);
 
-            boolean validPosition = isValidPosition(newPosition);
             boolean emptyPosition = isEmptySquare(board, newPosition);
 
-            if (validPosition) {
+            if (isValidPosition(newPosition)) {
                 // A move to a valid position may be made if it is empty or an opposing piece
                 if (emptyPosition || isDifferentColor(board, startPosition, newPosition)){
                     moves.add(new ChessMove(startPosition, newPosition, null));
@@ -487,7 +482,7 @@ public class ChessPiece {
      * @return boolean of if there is no piece on the selected position
      */
     private boolean isEmptySquare(ChessBoard board, ChessPosition position) {
-        return board.getPiece(position).getPieceType() == null;
+        return board.getPiece(position) == null;
     }
 
     /**
