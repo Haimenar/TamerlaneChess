@@ -62,7 +62,7 @@ public class TestUtilities {
                     var type = CHAR_TO_TYPE_MAP.get(Character.toLowerCase(c));
                     var position = new ChessPosition(row, column);
                     //Todo: Make it so that only pawns have pawntype, the rest null
-                    var piece = new ChessPiece(color, type, ChessPiece.PawnType.NULL);
+                    var piece = new ChessPiece(color, type, null);
                     board.addPiece(position, piece);
                     column++;
                 }

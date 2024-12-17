@@ -10,9 +10,9 @@ public class ChessPiece {
 
     private final ChessGame.TeamColor pieceColor;
     private final PieceType type;
-    private final PawnType pawnInherit;
+    private final PieceType pawnInherit;
 
-    public ChessPiece(ChessGame.TeamColor pieceColor, ChessPiece.PieceType type, ChessPiece.PawnType pawnInherit) {
+    public ChessPiece(ChessGame.TeamColor pieceColor, ChessPiece.PieceType type, ChessPiece.PieceType pawnInherit) {
         this.pieceColor = pieceColor;
         this.type = type;
         this.pawnInherit = pawnInherit;
@@ -22,20 +22,6 @@ public class ChessPiece {
      * The various different chess piece options
      */
     public enum PieceType {
-        KING,
-        COUNSELLOR,
-        VIZIER,
-        GIRAFFE,
-        PICKET,
-        KNIGHT,
-        ROOK,
-        ELEPHANT,
-        CAMEL,
-        WARENGINE,
-        PAWN
-    }
-    public enum PawnType {
-        NULL,
         KING,
         COUNSELLOR,
         VIZIER,
@@ -67,7 +53,7 @@ public class ChessPiece {
      * @return which type of piece a pawn promotes to
      * Is NULL if it isn't a pawn
      */
-    public PawnType getPawnType() {return pawnInherit;}
+    public PieceType getPawnType() {return pawnInherit;}
 
     /**
      * Calculates all the positions a chess piece can move to
@@ -363,8 +349,74 @@ public class ChessPiece {
     /**
      * @return ArrayList of all positions this chess piece can move to
      */
-    private ArrayList<ChessMove> pawnMoves(ChessBoard board, ChessPosition startPosition) {
-        throw new RuntimeException("Not implemented");
+    public ArrayList<ChessMove> pawnMoves(ChessBoard board, ChessPosition startPosition){
+        ArrayList<ChessMove> moves = new ArrayList<>();
+        int row = startPosition.getRow();
+        int col = startPosition.getColumn();
+
+        if (getTeamColor() == ChessGame.TeamColor.WHITE){
+            //This piece is WHITE
+            //set up diagonals
+            int[][] diagonals = {{1,1}, {1,-1}};
+
+            //Attacks
+            for(int[] diag : diagonals) {
+                int x = diag[0];
+                int y = diag[1];
+                ChessPosition newPosition = new ChessPosition(row + x, col + y);
+
+                if (isValidPosition(newPosition) && (board.getPiece(newPosition) != null && isDifferentColor(board, startPosition, newPosition))) {
+                    //Check conditions for promotion
+                    if (row == 7){
+                        moves.add(new ChessMove(startPosition, newPosition, getPawnType()));
+                    } else {
+                        moves.add(new ChessMove(startPosition, newPosition, null));
+                    }
+                }
+            }
+            //Get forward move
+            ChessPosition newPosition = new ChessPosition(row + 1, col);
+
+            if (isValidPosition(newPosition) && board.getPiece(newPosition) == null) {
+                //Check conditions for promotion
+                if (row == 7){
+                    moves.add(new ChessMove(startPosition, newPosition, getPawnType()));
+                } else {
+                    moves.add(new ChessMove(startPosition, newPosition, null));
+                }
+            }
+        } else {
+            //This piece is BLACK
+            //Set up diagonals
+            int[][] diagonals = {{-1,1}, {-1,-1}};
+
+            for(int[] diag : diagonals) {
+                int x = diag[0];
+                int y = diag[1];
+                ChessPosition newPosition = new ChessPosition(row + x, col + y);
+
+                if (isValidPosition(newPosition) && (board.getPiece(newPosition) != null && isDifferentColor(board, startPosition, newPosition))) {
+                    //Check conditions for promotion
+                    if (row == 2){
+                        moves.add(new ChessMove(startPosition, newPosition, getPawnType()));
+                    } else {
+                        moves.add(new ChessMove(startPosition, newPosition, null));
+                    }
+                }
+            }
+            //Get forward move
+            ChessPosition newPosition = new ChessPosition(row - 1, col);
+
+            if (isValidPosition(newPosition) && board.getPiece(newPosition) == null) {
+                //Check conditions for promotion
+                if (row == 2){
+                    moves.add(new ChessMove(startPosition, newPosition, getPawnType()));
+                } else {
+                    moves.add(new ChessMove(startPosition, newPosition, null));
+                }
+            }
+        }
+        return moves;
     }
 
     /**
