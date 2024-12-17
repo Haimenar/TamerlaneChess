@@ -129,8 +129,20 @@ public class ChessBoard {
 
     @Override
     public String toString() {
-        return "ChessBoard{" +
-                "squares=" + Arrays.toString(squares) +
-                '}';
+        var board  = "";
+        for (int rows = 0; rows < 10; rows++) {
+            board += "|";
+            for (int columns = 0; columns < 11; columns++) {
+                if (squares[rows][columns] != null) {
+                    board += squares[rows][columns].toString();
+                }
+                else {
+                    board += " ";
+                }
+                board += "|";
+            }
+            board += "\n";
+        }
+        return board;
     }
 }

@@ -42,7 +42,7 @@ public class ChessBoardTests {
                 | | | | | | | | | | | |
                 | | | | | | | | | | | |
                 |O|O|O|O|O|O|O|O|O|O|O|
-                |R|L|P|G|C|K|V|F|P|L|R|
+                |R|L|P|G|C|K|V|G|P|L|R|
                 |E| |M| |W| |W| |M| |E|
                 """);
 

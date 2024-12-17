@@ -47,6 +47,22 @@ public class TestUtilities {
         var board = new ChessBoard();
         int row = 10;
         int column = 1;
+
+        ChessPiece.PieceType[] pawnTypeArray = {
+                ChessPiece.PieceType.PAWN, ChessPiece.PieceType.WARMACHINE,
+                ChessPiece.PieceType.CAMEL, ChessPiece.PieceType.ELEPHANT,
+                ChessPiece.PieceType.COUNSELLOR, ChessPiece.PieceType.KING,
+                ChessPiece.PieceType.VIZIER, ChessPiece.PieceType.GIRAFFE,
+                ChessPiece.PieceType.PICKET, ChessPiece.PieceType.KNIGHT,
+                ChessPiece.PieceType.ROOK
+        };
+
+        // Reverse the pawnTypeArray for black pawns
+        ChessPiece.PieceType[] reversedPawnTypeArray = reverseArray(pawnTypeArray);
+
+        int whitePawnIndex = 0; // Index to iterate over pawnTypeArray for white pawns
+        int blackPawnIndex = 0; // Index to iterate over reversedPawnTypeArray for black pawns
+
         for (var c : boardText.toCharArray()) {
             switch (c) {
                 case '\n' -> {
@@ -54,21 +70,44 @@ public class TestUtilities {
                     row--;
                 }
                 case ' ' -> column++;
-                case '|' -> {
-                }
+                case '|' -> { /* Do nothing for board separators */ }
                 default -> {
                     ChessGame.TeamColor color = Character.isLowerCase(c) ? ChessGame.TeamColor.BLACK
                             : ChessGame.TeamColor.WHITE;
                     var type = CHAR_TO_TYPE_MAP.get(Character.toLowerCase(c));
                     var position = new ChessPosition(row, column);
-                    //Todo: Make it so that only pawns have pawntype, the rest null
-                    var piece = new ChessPiece(color, type, null);
-                    board.addPiece(position, piece);
+
+                    if (type == ChessPiece.PieceType.PAWN) {
+                        ChessPiece.PieceType pawnType;
+
+                        // Assign reversed pawn type for black pawns, normal order for white pawns
+                        if (color == ChessGame.TeamColor.BLACK) {
+                            pawnType = reversedPawnTypeArray[blackPawnIndex % reversedPawnTypeArray.length];
+                            blackPawnIndex++;
+                        } else {
+                            pawnType = pawnTypeArray[whitePawnIndex % pawnTypeArray.length];
+                            whitePawnIndex++;
+                        }
+
+                        var piece = new ChessPiece(color, type, pawnType);
+                        board.addPiece(position, piece);
+                    } else {
+                        var piece = new ChessPiece(color, type, null);
+                        board.addPiece(position, piece);
+                    }
                     column++;
                 }
             }
         }
         return board;
+    }
+
+    private static ChessPiece.PieceType[] reverseArray(ChessPiece.PieceType[] array) {
+        ChessPiece.PieceType[] reversed = new ChessPiece.PieceType[array.length];
+        for (int i = 0; i < array.length; i++) {
+            reversed[i] = array[array.length - 1 - i];
+        }
+        return reversed;
     }
 
     public static Set<ChessMove> loadMoves(ChessPosition startPosition, int[][] endPositions) {
