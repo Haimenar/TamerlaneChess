@@ -110,17 +110,16 @@ public class ChessPiece {
         ArrayList<ChessMove> moves = new ArrayList<>();
         int row = startPosition.getRow();
         int col = startPosition.getColumn();
+        int[][] spots = {{1,1}, {1,-1}, {-1,1}, {-1,-1}, {1,0}, {-1,0}, {0,1}, {0,-1}};
 
-        for (int x = -1; x < 2; x++) {
-            for (int y = -1; y < 2; y++) {
-                if (!(x == 0 && y == 0)){
-                    ChessPosition newPosition = new ChessPosition(row + x, col + y);
+        for(int[] spot : spots){
+            int x = spot[0];
+            int y = spot[1];
+            ChessPosition newPosition = new ChessPosition(row + x, col + y);
 
-                    if(isValidPosition(newPosition)) {
-                        if (isEmptySquare(board, newPosition) || ((!isEmptySquare(board, newPosition) && isDifferentColor(board, startPosition, newPosition)))){
-                            moves.add(new ChessMove(startPosition, newPosition, null));
-                        }
-                    }
+            if(isValidPosition(newPosition)) {
+                if (isEmptySquare(board, newPosition) || ((!isEmptySquare(board, newPosition) && isDifferentColor(board, startPosition, newPosition)))){
+                    moves.add(new ChessMove(startPosition, newPosition, null));
                 }
             }
         }
