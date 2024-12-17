@@ -221,6 +221,10 @@ public class ChessPiece {
                             j += dir[1];
                             newPosition = new ChessPosition(row + x, col + y);
                         }
+
+                        if (isValidPosition(newPosition) && isDifferentColor(board, startPosition, newPosition)){
+                            moves.add(new ChessMove(startPosition, newPosition, null));
+                        }
                     }
                 }
 
@@ -254,6 +258,10 @@ public class ChessPiece {
                 x += dir[0];
                 y += dir[1];
                 newPosition = new ChessPosition(row + x, col + y);
+            }
+
+            if (isValidPosition(newPosition) && isDifferentColor(board, startPosition, newPosition)){
+                moves.add(new ChessMove(startPosition, newPosition, null));
             }
         }
         return moves;
@@ -305,6 +313,10 @@ public class ChessPiece {
                 x += dir[0];
                 y += dir[1];
                 newPosition = new ChessPosition(row + x, col + y);
+            }
+
+            if (isValidPosition(newPosition) && isDifferentColor(board, startPosition, newPosition)){
+                moves.add(new ChessMove(startPosition, newPosition, null));
             }
         }
         return moves;
@@ -468,7 +480,7 @@ public class ChessPiece {
      * true if they are different colors, false if they are the same color
      */
     private boolean isDifferentColor(ChessBoard board, ChessPosition pos1, ChessPosition pos2) {
-        return board.getPiece(pos1).getTeamColor() == board.getPiece(pos2).getTeamColor();
+        return board.getPiece(pos1).getTeamColor() != board.getPiece(pos2).getTeamColor();
     }
 
     /**
