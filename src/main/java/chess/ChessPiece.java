@@ -104,6 +104,8 @@ public class ChessPiece {
     }
 
     /**
+     * King moves one square vertically or horizontally
+     *
      * @return ArrayList of all positions this chess piece can move to
      */
     private ArrayList<ChessMove> kingMoves(ChessBoard board, ChessPosition startPosition) {
@@ -127,6 +129,8 @@ public class ChessPiece {
     }
 
     /**
+     * Counsellor moves one square diagonally
+     *
      * @return ArrayList of all positions this chess piece can move to
      */
     private ArrayList<ChessMove> counsellorMoves(ChessBoard board, ChessPosition startPosition) {
@@ -149,6 +153,8 @@ public class ChessPiece {
         return moves;        }
 
     /**
+     * Vizier moves one square vertically or horizontally
+     *
      * @return ArrayList of all positions this chess piece can move to
      */
     private ArrayList<ChessMove> vizierMoves(ChessBoard board, ChessPosition startPosition) {
@@ -173,6 +179,11 @@ public class ChessPiece {
     }
 
     /**
+     * Giraffe moves diagonally once and then a minimum of three squares vertically or horizontally
+     * Cannot jump pieces
+     * Can only make the diagonal move if there is also an empty square adjacent to
+     * the giraffe's square and diagonal square
+     *
      * @return ArrayList of all positions this chess piece can move to
      */
     private ArrayList<ChessMove> giraffeMoves(ChessBoard board, ChessPosition startPosition) {
@@ -236,6 +247,9 @@ public class ChessPiece {
     }
 
     /**
+     * Picket moves two or more squares diagonally
+     * Cannot jump pieces
+     *
      * @return ArrayList of all positions this chess piece can move to
      */
     private ArrayList<ChessMove> picketMoves(ChessBoard board, ChessPosition startPosition) {
@@ -270,6 +284,9 @@ public class ChessPiece {
     }
 
     /**
+     * Knight jumps one square vertically and two squares horizontally
+     * or jumps one square horizontally and two squares vertically
+     *
      * @return ArrayList of all positions this chess piece can move to
      */
     private ArrayList<ChessMove> knightMoves(ChessBoard board, ChessPosition startPosition) {
@@ -293,6 +310,9 @@ public class ChessPiece {
     }
 
     /**
+     * Rook moves any number of squares vertically or horizontally
+     * Cannot jump pieces
+     *
      * @return ArrayList of all positions this chess piece can move to
      */
     private ArrayList<ChessMove> rookMoves(ChessBoard board, ChessPosition startPosition) {
@@ -321,6 +341,8 @@ public class ChessPiece {
     }
 
     /**
+     * Elephant jumps two squares diagonally
+     *
      * @return ArrayList of all positions this chess piece can move to
      */
     private ArrayList<ChessMove> elephantMoves(ChessBoard board, ChessPosition startPosition) {
@@ -343,6 +365,9 @@ public class ChessPiece {
     }
 
     /**
+     * Camel jumps one square vertically and three squares horizontally,
+     * or one square horizontally and three squares vertically
+     *
      * @return ArrayList of all positions this chess piece can move to
      */
     private ArrayList<ChessMove> camelMoves(ChessBoard board, ChessPosition startPosition) {
@@ -366,6 +391,8 @@ public class ChessPiece {
     }
 
     /**
+     * War machine jumps two squares horizontally or vertically
+     *
      * @return ArrayList of all positions this chess piece can move to
      */
     private ArrayList<ChessMove> warMachineMoves(ChessBoard board, ChessPosition startPosition) {
@@ -389,6 +416,10 @@ public class ChessPiece {
     }
 
     /**
+     * Pawn moves forward one square if unobstructed. Can move diagonally forward if capturing
+     * White pawns move in increasing rows or "up" the board
+     * Black pawns move in decreasing rows, or "down" the board
+     *
      * @return ArrayList of all positions this chess piece can move to
      */
     public ArrayList<ChessMove> pawnMoves(ChessBoard board, ChessPosition startPosition){
