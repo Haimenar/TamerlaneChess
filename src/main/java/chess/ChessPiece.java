@@ -180,47 +180,58 @@ public class ChessPiece {
         int row = startPosition.getRow();
         int col = startPosition.getColumn();
 
-        // Iterate through each corner
-        for (int x = -1; x < 2; x += 2) {
-            for (int y = -1; y < 2; y += 2) {
+        int[][] cornerDirections = {{-1, -1}, {-1, 1}, {1, -1}, {1, 1}};
 
-                // For a giraffe to move, two spaces must be open: one adjacent and one diagonal
-                ChessPosition diagonalSquare = new ChessPosition(row + x, col + y);
-                ChessPosition adjacentSquare1 = new ChessPosition(row, col + y);
-                ChessPosition adjacentSquare2 = new ChessPosition(row + x, col);
+        for (int[] corner : cornerDirections) {
+            int diagonalRow = row + corner[0];
+            int diagonalCol = col + corner[1];
+            ChessPosition diagonalSquare = new ChessPosition(diagonalRow, diagonalCol);
+            ChessPosition adjacentSquare1 = new ChessPosition(diagonalRow, col);
+            ChessPosition adjacentSquare2 = new ChessPosition(row, diagonalCol);
 
-                if (isEmptySquare(board, diagonalSquare) && (isEmptySquare(board, adjacentSquare1) || isEmptySquare(board, adjacentSquare2))) {
-                    // From each corner, the giraffe moves at least 3 spaces out horizontally or vertically
-                    //The horizontal and vertical directions are one direction facing away from the starting square
-                    int[][] direction = {{x,0}, {0,y}};
-                    for(int[] dir : direction){
-                        int i = dir[0];
-                        int j = dir[1];
-                        ChessPosition newPosition = new ChessPosition(row + x + i, col + y + j);
+            // Check if diagonal square is empty
+            if (!isValidPosition(diagonalSquare) || !isEmptySquare(board, diagonalSquare)) {
+                continue;
+            }
 
-                        while(isValidPosition(newPosition) && board.getPiece(newPosition) == null){
-                            // The Giraffe must move at least 3 spaces
-                            if (i >= 3 || j>= 3) {
-                                moves.add(new ChessMove(startPosition, newPosition, null));
-                            }
+            //Check if there is at least one adjacent space nest to the diagonal square
+            if ((!isValidPosition(adjacentSquare1) || !isEmptySquare(board, adjacentSquare1)) && (!isValidPosition(adjacentSquare2) || !isEmptySquare(board, adjacentSquare2))) {
+                continue;
+            }
 
-                            i += dir[0];
-                            j += dir[1];
-                            newPosition = new ChessPosition(row + x, col + y);
-                        }
+            // Directions to continue from the diagonal square
+            int[][] straightDirections = {{corner[0], 0}, {0, corner[1]}};
 
-                        if (i < 3 && j <3){
-                            continue;
-                        }
+            for (int[] dir : straightDirections) {
+                int newRow = diagonalRow;
+                int newCol = diagonalCol;
+                int steps = 0;
 
-                        if (isValidPosition(newPosition) && isDifferentColor(board, startPosition, newPosition)){
+                // Move in the current direction while valid
+                while (true) {
+                    newRow += dir[0];
+                    newCol += dir[1];
+                    steps++;
+
+                    ChessPosition newPosition = new ChessPosition(newRow, newCol);
+
+                    if (!isValidPosition(newPosition)) break;
+
+                    if (board.getPiece(newPosition) != null) {
+                        // If it's an opponent's piece and the move is at least 3 spaces, add it
+                        if (steps >= 3 && isDifferentColor(board, startPosition, newPosition)) {
                             moves.add(new ChessMove(startPosition, newPosition, null));
                         }
+                        break;
+                    }
+
+                    if (steps >= 3) {
+                        moves.add(new ChessMove(startPosition, newPosition, null));
                     }
                 }
-
             }
         }
+
         return moves;
     }
 
