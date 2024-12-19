@@ -91,7 +91,7 @@ public class FullGameTest {
         | |L|P|G|C|K|V|G|P|L|R|
         |E| |M| |W| |W| |M| |E|
          */
-        game.makeMove(new ChessMove(new ChessPosition(4, 1), new ChessPosition(4, 6), null));
+        game.makeMove(new ChessMove(new ChessPosition(4, 1), new ChessPosition(4, 2), null));
         /*
         |e| |m| |w| |w| |m| |e|
         |r|l|p|g|v|k|c|g|p|l|r|
@@ -99,113 +99,165 @@ public class FullGameTest {
         | | | | | | | | | | | |
         | | | | | | | | | | | |
         |O| | | | |o| | | | | |
-        | | | | | |R| | | | | |
+        | |R| | | | | | | | | |
         | |O|O|O|O|O|O|O|O|O|O|
         | |L|P|G|C|K|V|G|P|L|R|
         |E| |M| |W| |W| |M| |E|
          */
-        game.makeMove(new ChessMove(new ChessPosition(8, 5), new ChessPosition(7, 5), null));
+        game.makeMove(new ChessMove(new ChessPosition(9, 6), new ChessPosition(8, 6), null));
         /*
         |e| |m| |w| |w| |m| |e|
-        |r|l|p|g|v|k|c|g|p|l|r|
-        |o|o|o|o| | |o|o|o|o|o|
-        | | | | |o| | | | | | |
+        |r|l|p|g|v| |c|g|p|l|r|
+        |o|o|o|o|o|k|o|o|o|o|o|
+        | | | | | | | | | | | |
         | | | | | | | | | | | |
         |O| | | | |o| | | | | |
-        | | | | | |R| | | | | |
+        | |R| | | | | | | | | |
         | |O|O|O|O|O|O|O|O|O|O|
         | |L|P|G|C|K|V|G|P|L|R|
         |E| |M| |W| |W| |M| |E|
          */
-        game.makeMove(new ChessMove(new ChessPosition(3, 2), new ChessPosition(4, 2), null));
+        game.makeMove(new ChessMove(new ChessPosition(3, 11), new ChessPosition(4, 11), null));
         /*
         |e| |m| |w| |w| |m| |e|
-        |r|l|p|g|v|k|c|g|p|l|r|
-        |o|o|o|o| | |o|o|o|o|o|
-        | | | | |o| | | | | | |
+        |r|l|p|g|v| |c|g|p|l|r|
+        |o|o|o|o|o|k|o|o|o|o|o|
+        | | | | | | | | | | | |
         | | | | | | | | | | | |
         |O| | | | |o| | | | | |
-        | |O| | | |R| | | | | |
-        | | |O|O|O|O|O|O|O|O|O|
+        | |R| | | | | | | | |O|
+        | |O|O|O|O|O|O|O|O|O| |
         | |L|P|G|C|K|V|G|P|L|R|
+        |E| |M| |W| |W| |M| |E|
+         */
+        game.makeMove(new ChessMove(new ChessPosition(8, 6), new ChessPosition(7, 6), null));
+        /*
+        |e| |m| |w| |w| |m| |e|
+        |r|l|p|g|v| |c|g|p|l|r|
+        |o|o|o|o|o| |o|o|o|o|o|
+        | | | | | |k| | | | | |
+        | | | | | | | | | | | |
+        |O| | | | |o| | | | | |
+        | |R| | | | | | | | |O|
+        | |O|O|O|O|O|O|O|O|O| |
+        | |L|P|G|C|K|V|G|P|L|R|
+        |E| |M| |W| |W| |M| |E|
+         */
+        game.makeMove(new ChessMove(new ChessPosition(4, 11), new ChessPosition(5, 11), null));
+        /*
+        |e| |m| |w| |w| |m| |e|
+        |r|l|p|g|v| |c|g|p|l|r|
+        |o|o|o|o|o| |o|o|o|o|o|
+        | | | | | |k| | | | | |
+        | | | | | | | | | | | |
+        |O| | | | |o| | | | |O|
+        | |R| | | | | | | | | |
+        | |O|O|O|O|O|O|O|O|O| |
+        | |L|P|G|C|K|V|G|P|L|R|
+        |E| |M| |W| |W| |M| |E|
+         */
+        game.makeMove(new ChessMove(new ChessPosition(7, 6), new ChessPosition(6, 6), null));
+        /*
+        |e| |m| |w| |w| |m| |e|
+        |r|l|p|g|v| |c|g|p|l|r|
+        |o|o|o|o|o| |o|o|o|o|o|
+        | | | | | | | | | | | |
+        | | | | | |k| | | | | |
+        |O| | | | |o| | | | |O|
+        | |R| | | | | | | | | |
+        | |O|O|O|O|O|O|O|O|O| |
+        | |L|P|G|C|K|V|G|P|L|R|
+        |E| |M| |W| |W| |M| |E|
+         */
+        game.makeMove(new ChessMove(new ChessPosition(2, 11), new ChessPosition(4, 11), null));
+        /*
+        |e| |m| |w| |w| |m| |e|
+        |r|l|p|g|v| |c|g|p|l|r|
+        |o|o|o|o|o| |o|o|o|o|o|
+        | | | | | | | | | | | |
+        | | | | | |k| | | | | |
+        |O| | | | |o| | | | |O|
+        | |R| | | | | | | | |R|
+        | |O|O|O|O|O|O|O|O|O| |
+        | |L|P|G|C|K|V|G|P|L| |
+        |E| |M| |W| |W| |M| |E|
+         */
+        game.makeMove(new ChessMove(new ChessPosition(6, 6), new ChessPosition(5, 7), null));
+        /*
+        |e| |m| |w| |w| |m| |e|
+        |r|l|p|g|v| |c|g|p|l|r|
+        |o|o|o|o|o| |o|o|o|o|o|
+        | | | | | | | | | | | |
+        | | | | | | | | | | | |
+        |O| | | | |o|k| | | |O|
+        | |R| | | | | | | | |R|
+        | |O|O|O|O|O|O|O|O|O| |
+        | |L|P|G|C|K|V|G|P|L| |
+        |E| |M| |W| |W| |M| |E|
+         */
+        game.makeMove(new ChessMove(new ChessPosition(4, 11), new ChessPosition(4, 10), null));
+        /*
+        |e| |m| |w| |w| |m| |e|
+        |r|l|p|g|v| |c|g|p|l|r|
+        |o|o|o|o|o| |o|o|o|o|o|
+        | | | | | | | | | | | |
+        | | | | | | | | | | | |
+        |O| | | | |o|k| | | |O|
+        | |R| | | | | | | |R| |
+        | |O|O|O|O|O|O|O|O|O| |
+        | |L|P|G|C|K|V|G|P|L| |
         |E| |M| |W| |W| |M| |E|
          */
         game.makeMove(new ChessMove(new ChessPosition(8, 1), new ChessPosition(7, 1), null));
         /*
         |e| |m| |w| |w| |m| |e|
-        |r|l|p|g|v|k|c|g|p|l|r|
-        | |o|o|o| | |o|o|o|o|o|
-        |o| | | |o| | | | | | |
+        |r|l|p|g|v| |c|g|p|l|r|
+        | |o|o|o|o| |o|o|o|o|o|
+        |o| | | | | | | | | | |
         | | | | | | | | | | | |
-        |O| | | | |o| | | | | |
-        | |O| | | |R| | | | | |
-        | | |O|O|O|O|O|O|O|O|O|
-        | |L|P|G|C|K|V|G|P|L|R|
+        |O| | | | |o|k| | | |O|
+        | |R| | | | | | | |R| |
+        | |O|O|O|O|O|O|O|O|O| |
+        | |L|P|G|C|K|V|G|P|L| |
         |E| |M| |W| |W| |M| |E|
          */
-        game.makeMove(new ChessMove(new ChessPosition(2, 3), new ChessPosition(4, 1), null));
+        game.makeMove(new ChessMove(new ChessPosition(4, 2), new ChessPosition(6, 2), null));
         /*
         |e| |m| |w| |w| |m| |e|
-        |r|l|p|g|v|k|c|g|p|l|r|
-        | |o|o|o| | |o|o|o|o|o|
-        |o| | | |o| | | | | | |
-        | | | | | | | | | | | |
-        |O| | | | |o| | | | | |
-        |P|O| | | |R| | | | | |
-        | | |O|O|O|O|O|O|O|O|O|
-        | |L| |G|C|K|V|G|P|L|R|
-        |E| |M| |W| |W| |M| |E|
-         */
-        game.makeMove(new ChessMove(new ChessPosition(9, 6), new ChessPosition(10, 6), null));
-        /*
-        |e| |m| |w|k|w| |m| |e|
         |r|l|p|g|v| |c|g|p|l|r|
-        | |o|o|o| | |o|o|o|o|o|
-        |o| | | |o| | | | | | |
-        | | | | | | | | | | | |
-        |O| | | | |o| | | | | |
-        |P|O| | | |R| | | | | |
-        | | |O|O|O|O|O|O|O|O|O|
-        | |L| |G|C|K|V|G|P|L|R|
+        | |o|o|o|o| |o|o|o|o|o|
+        |o| | | | | | | | | | |
+        | |R| | | | | | | | | |
+        |O| | | | |o|k| | | |O|
+        | | | | | | | | | |R| |
+        | |O|O|O|O|O|O|O|O|O| |
+        | |L|P|G|C|K|V|G|P|L| |
         |E| |M| |W| |W| |M| |E|
          */
-        game.makeMove(new ChessMove(new ChessPosition(4, 6), new ChessPosition(5, 6), null));
+        game.makeMove(new ChessMove(new ChessPosition(7, 1), new ChessPosition(6, 1), null));
         /*
-        |e| |m| |w|k|w| |m| |e|
+        |e| |m| |w| |w| |m| |e|
         |r|l|p|g|v| |c|g|p|l|r|
-        | |o|o|o| | |o|o|o|o|o|
-        |o| | | |o| | | | | | |
+        | |o|o|o|o| |o|o|o|o|o|
         | | | | | | | | | | | |
-        |O| | | | |R| | | | | |
-        |P|O| | | | | | | | | |
-        | | |O|O|O|O|O|O|O|O|O|
-        | |L| |G|C|K|V|G|P|L|R|
+        |o|R| | | | | | | | | |
+        |O| | | | |o|k| | | |O|
+        | | | | | | | | | |R| |
+        | |O|O|O|O|O|O|O|O|O| |
+        | |L|P|G|C|K|V|G|P|L| |
         |E| |M| |W| |W| |M| |E|
          */
-        game.makeMove(new ChessMove(new ChessPosition(9, 5), new ChessPosition(9, 6), null));
+        game.makeMove(new ChessMove(new ChessPosition(4, 10), new ChessPosition(5, 10), null));
         /*
-        |e| |m| |w|k|w| |m| |e|
-        |r|l|p|g| |v|c|g|p|l|r|
-        | |o|o|o| | |o|o|o|o|o|
-        |o| | | |o| | | | | | |
+        |e| |m| |w| |w| |m| |e|
+        |r|l|p|g|v| |c|g|p|l|r|
+        | |o|o|o|o| |o|o|o|o|o|
         | | | | | | | | | | | |
-        |O| | | | |R| | | | | |
-        |P|O| | | | | | | | | |
-        | | |O|O|O|O|O|O|O|O|O|
-        | |L| |G|C|K|V|G|P|L|R|
-        |E| |M| |W| |W| |M| |E|
-         */
-        game.makeMove(new ChessMove(new ChessPosition(5, 6), new ChessPosition(9, 6), null));
-        /*
-        |e| |m| |w|k|w| |m| |e|
-        |r|l|p|g| |R|c|g|p|l|r|
-        | |o|o|o| | |o|o|o|o|o|
-        |o| | | |o| | | | | | |
+        |o|R| | | | | | | | | |
+        |O| | | | |o|k| | |R|O|
         | | | | | | | | | | | |
-        |O| | | | | | | | | | |
-        |P|O| | | | | | | | | |
-        | | |O|O|O|O|O|O|O|O|O|
-        | |L| |G|C|K|V|G|P|L|R|
+        | |O|O|O|O|O|O|O|O|O| |
+        | |L|P|G|C|K|V|G|P|L| |
         |E| |M| |W| |W| |M| |E|
          */
         Assertions.assertTrue(game.isInCheck(ChessGame.TeamColor.BLACK),

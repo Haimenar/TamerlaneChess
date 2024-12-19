@@ -25,6 +25,16 @@ public class ChessBoard {
     }
 
     /**
+     * Removes a chess piece from the chessboard
+     *
+     * @param position where to add the piece to
+     */
+    public void removePiece(ChessPosition position) {
+        squares[position.getRow() - 1][position.getColumn() - 1] = null;
+    }
+
+
+    /**
      * Gets a chess piece on the chessboard
      *
      * @param position The position to get the piece from
@@ -34,6 +44,7 @@ public class ChessBoard {
     public ChessPiece getPiece(ChessPosition position) {
         return squares[position.getRow() - 1][position.getColumn() - 1];
     }
+
 
     /**
      * Sets the board to the default starting board
@@ -129,20 +140,20 @@ public class ChessBoard {
 
     @Override
     public String toString() {
-        var board  = "";
+        StringBuilder board  = new StringBuilder();
         for (int rows = 0; rows < 10; rows++) {
-            board += "|";
+            board.append("|");
             for (int columns = 0; columns < 11; columns++) {
                 if (squares[rows][columns] != null) {
-                    board += squares[rows][columns].toString();
+                    board.append(squares[rows][columns].toString());
                 }
                 else {
-                    board += " ";
+                    board.append(" ");
                 }
-                board += "|";
+                board.append("|");
             }
-            board += "\n";
+            board.append("\n");
         }
-        return board;
+        return board.toString();
     }
 }
