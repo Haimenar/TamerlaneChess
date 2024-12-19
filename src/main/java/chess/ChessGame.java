@@ -306,12 +306,18 @@ public class ChessGame {
                 if (potentialKing == null) {
                     continue;
                 }
-                // Check if the piece is a king
-                if (potentialKing.getPieceType() != ChessPiece.PieceType.KING) {
+
+                // Check if the king is the right color
+                if (potentialKing.getTeamColor() != teamColor) {
                     continue;
                 }
-                // Check if the king is the right color
-                if (potentialKing.getTeamColor() == teamColor) {
+
+                // Check if the piece is a king, prince, or adventitious king
+                if (potentialKing.getPieceType() == ChessPiece.PieceType.KING) {
+                    return new ChessPosition(x, y);
+                } else if (potentialKing.getPieceType() == ChessPiece.PieceType.PRINCE) {
+                    return new ChessPosition(x, y);
+                } else if (potentialKing.getPieceType() == ChessPiece.PieceType.ADVENTITIOUSKING) {
                     return new ChessPosition(x, y);
                 }
             }
@@ -337,9 +343,18 @@ public class ChessGame {
                     continue;
                 }
 
-                // If the piece is a king and the same color, increment the king counter by one
-                if (potentialKing.getPieceType() == ChessPiece.PieceType.KING && potentialKing.getTeamColor() == teamColor) {
-                    kingCounter++;
+                // Check if the king is the right color
+                if (potentialKing.getTeamColor() != teamColor) {
+                    continue;
+                }
+
+                // Check if the piece is a king, prince, or adventitious king and increment king counter accordingly
+                if (potentialKing.getPieceType() == ChessPiece.PieceType.KING) {
+                    kingCounter ++;
+                } else if (potentialKing.getPieceType() == ChessPiece.PieceType.PRINCE) {
+                    kingCounter ++;
+                } else if (potentialKing.getPieceType() == ChessPiece.PieceType.ADVENTITIOUSKING) {
+                    kingCounter ++;
                 }
             }
         }

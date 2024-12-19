@@ -55,7 +55,9 @@ public class ChessPiece {
         ELEPHANT,
         CAMEL,
         WARMACHINE,
-        PAWN
+        PAWN,
+        PRINCE,
+        ADVENTITIOUSKING
     }
 
     /**
@@ -98,6 +100,8 @@ public class ChessPiece {
             case CAMEL -> camelMoves(board, piecePosition);
             case WARMACHINE -> warMachineMoves(board, piecePosition);
             case PAWN -> pawnMoves(board, piecePosition);
+            case PRINCE -> princeMoves(board, piecePosition);
+            case ADVENTITIOUSKING -> adventitiousKingMoves(board, piecePosition);
             case null, default -> throw new RuntimeException("Piece not implemented");
         };
 
@@ -109,6 +113,56 @@ public class ChessPiece {
      * @return ArrayList of all positions this chess piece can move to
      */
     private ArrayList<ChessMove> kingMoves(ChessBoard board, ChessPosition startPosition) {
+        ArrayList<ChessMove> moves = new ArrayList<>();
+        int row = startPosition.getRow();
+        int col = startPosition.getColumn();
+        int[][] spots = {{1,1}, {1,-1}, {-1,1}, {-1,-1}, {1,0}, {-1,0}, {0,1}, {0,-1}};
+
+        for(int[] spot : spots){
+            int x = spot[0];
+            int y = spot[1];
+            ChessPosition newPosition = new ChessPosition(row + x, col + y);
+
+            if(isValidPosition(newPosition)) {
+                if (isEmptySquare(board, newPosition) || ((!isEmptySquare(board, newPosition) && isDifferentColor(board, startPosition, newPosition)))){
+                    moves.add(new ChessMove(startPosition, newPosition, null));
+                }
+            }
+        }
+        return moves;
+    }
+
+    /**
+     * Prince moves one square vertically or horizontally
+     *
+     * @return ArrayList of all positions this chess piece can move to
+     */
+    private ArrayList<ChessMove> princeMoves(ChessBoard board, ChessPosition startPosition) {
+        ArrayList<ChessMove> moves = new ArrayList<>();
+        int row = startPosition.getRow();
+        int col = startPosition.getColumn();
+        int[][] spots = {{1,1}, {1,-1}, {-1,1}, {-1,-1}, {1,0}, {-1,0}, {0,1}, {0,-1}};
+
+        for(int[] spot : spots){
+            int x = spot[0];
+            int y = spot[1];
+            ChessPosition newPosition = new ChessPosition(row + x, col + y);
+
+            if(isValidPosition(newPosition)) {
+                if (isEmptySquare(board, newPosition) || ((!isEmptySquare(board, newPosition) && isDifferentColor(board, startPosition, newPosition)))){
+                    moves.add(new ChessMove(startPosition, newPosition, null));
+                }
+            }
+        }
+        return moves;
+    }
+
+    /**
+     * Adventitious king moves one square vertically or horizontally
+     *
+     * @return ArrayList of all positions this chess piece can move to
+     */
+    private ArrayList<ChessMove> adventitiousKingMoves(ChessBoard board, ChessPosition startPosition) {
         ArrayList<ChessMove> moves = new ArrayList<>();
         int row = startPosition.getRow();
         int col = startPosition.getColumn();
