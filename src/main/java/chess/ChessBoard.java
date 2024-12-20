@@ -57,10 +57,10 @@ public class ChessBoard {
                 }
             }
 
-            ChessPiece.PieceType[] backRowPieces =
-                    {ChessPiece.PieceType.ELEPHANT, ChessPiece.PieceType.CAMEL,
+            ChessPiece.PieceType[] backRowPieces = {
+                    ChessPiece.PieceType.ELEPHANT, ChessPiece.PieceType.CAMEL,
                     ChessPiece.PieceType.WARMACHINE, ChessPiece.PieceType.WARMACHINE,
-                            ChessPiece.PieceType.CAMEL, ChessPiece.PieceType.ELEPHANT};
+                    ChessPiece.PieceType.CAMEL, ChessPiece.PieceType.ELEPHANT};
             int x = 1;
             int y = 1;
             //White Pieces Back Row
@@ -70,13 +70,13 @@ public class ChessBoard {
             }
 
             //White Pieces Middle Row
-            ChessPiece.PieceType[] middleRowPieces =
-                    {ChessPiece.PieceType.ROOK, ChessPiece.PieceType.KNIGHT,
-                            ChessPiece.PieceType.PICKET, ChessPiece.PieceType.GIRAFFE,
-                            ChessPiece.PieceType.COUNSELLOR, ChessPiece.PieceType.KING,
-                            ChessPiece.PieceType.VIZIER, ChessPiece.PieceType.GIRAFFE,
-                            ChessPiece.PieceType.PICKET, ChessPiece.PieceType.KNIGHT,
-                            ChessPiece.PieceType.ROOK};
+            ChessPiece.PieceType[] middleRowPieces = {
+                    ChessPiece.PieceType.ROOK, ChessPiece.PieceType.KNIGHT,
+                    ChessPiece.PieceType.PICKET, ChessPiece.PieceType.GIRAFFE,
+                    ChessPiece.PieceType.COUNSELLOR, ChessPiece.PieceType.KING,
+                    ChessPiece.PieceType.VIZIER, ChessPiece.PieceType.GIRAFFE,
+                    ChessPiece.PieceType.PICKET, ChessPiece.PieceType.KNIGHT,
+                    ChessPiece.PieceType.ROOK};
             x = 2;
             y = 1;
             for (ChessPiece.PieceType type : middleRowPieces){
@@ -85,13 +85,13 @@ public class ChessBoard {
             }
 
             //White Pawns
-            ChessPiece.PieceType[] pawnTypeArray =
-                    {ChessPiece.PieceType.PAWN, ChessPiece.PieceType.WARMACHINE,
-                            ChessPiece.PieceType.CAMEL, ChessPiece.PieceType.ELEPHANT,
-                            ChessPiece.PieceType.COUNSELLOR, ChessPiece.PieceType.KING,
-                            ChessPiece.PieceType.VIZIER, ChessPiece.PieceType.GIRAFFE,
-                            ChessPiece.PieceType.PICKET, ChessPiece.PieceType.KNIGHT,
-                            ChessPiece.PieceType.ROOK};
+            ChessPiece.PieceType[] pawnTypeArray = {
+                    ChessPiece.PieceType.PAWN, ChessPiece.PieceType.WARMACHINE,
+                    ChessPiece.PieceType.CAMEL, ChessPiece.PieceType.ELEPHANT,
+                    ChessPiece.PieceType.COUNSELLOR, ChessPiece.PieceType.PRINCE,
+                    ChessPiece.PieceType.VIZIER, ChessPiece.PieceType.GIRAFFE,
+                    ChessPiece.PieceType.PICKET, ChessPiece.PieceType.KNIGHT,
+                    ChessPiece.PieceType.ROOK};
             x = 3;
             y = 1;
             for (ChessPiece.PieceType pawnType : pawnTypeArray){

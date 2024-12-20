@@ -49,6 +49,7 @@ public class pawnMoveTests {
     @Test
     public void whitePawnCaptureEnemy() {
         validateMoves("""
+                        | | | | | | | | | | | |
                         |l| |v| | | | | | | | |
                         | |O| | | | | | | | | |
                         | | | | | | | | | | | |
@@ -58,10 +59,9 @@ public class pawnMoveTests {
                         | | | | | | | | | | | |
                         | | | | | | | | | | | |
                         | | | | | | | | | | | |
-                        | | | | | | | | | | | |
                         """,
-                new ChessPosition(9, 2),
-                new int[][]{{10, 1}, {10, 2}, {10, 3}}
+                new ChessPosition(8, 2),
+                new int[][]{{9, 1}, {9, 2}, {9, 3}}
         );
     }
 

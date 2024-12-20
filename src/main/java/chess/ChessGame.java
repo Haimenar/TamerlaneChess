@@ -103,7 +103,7 @@ public class ChessGame {
             throw new InvalidMoveException("Invalid move. Please choose a valid move.");
         }
 
-        // Store the possible captured piece for later
+        // Store the possible captured piece for later and remove the current piece
         ChessPiece capturedPiece = board.getPiece(endPosition);
         board.removePiece(startPosition);
 
@@ -111,8 +111,21 @@ public class ChessGame {
         if (move.getPromotionPiece() == null) {
             board.addPiece(endPosition, selectedPiece);
         } else {
-            ChessPiece promotedPiece = new ChessPiece(currentTeam, move.getPromotionPiece(), null);
-            board.addPiece(endPosition, promotedPiece);
+
+            // If the pawn promoted was the pawn of pawns, then it becomes pawn2
+            if (selectedPiece.getPawnType() == ChessPiece.PieceType.PAWN) {
+                ChessPiece promotedPiece = new ChessPiece(currentTeam, ChessPiece.PieceType.PAWN, ChessPiece.PieceType.PAWN2);
+                board.addPiece(endPosition, promotedPiece);
+            } else if (selectedPiece.getPawnType() == ChessPiece.PieceType.PAWN2) {
+                // If the pawn is pawn2, then put it where the pawn of kings would be and make it an adventitious king pawn
+                ChessPiece promotedPiece = new ChessPiece(currentTeam, ChessPiece.PieceType.PAWN, ChessPiece.PieceType.ADVENTITIOUSKING);
+                board.addPiece(endPosition, promotedPiece);
+            } else {
+
+                // This pawn is just a regular pawn
+                ChessPiece promotedPiece = new ChessPiece(currentTeam, move.getPromotionPiece(), null);
+                board.addPiece(endPosition, promotedPiece);
+            }
         }
 
         // If the move puts the current team in check, undo the move

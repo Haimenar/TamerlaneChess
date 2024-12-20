@@ -57,7 +57,8 @@ public class ChessPiece {
         WARMACHINE,
         PAWN,
         PRINCE,
-        ADVENTITIOUSKING
+        ADVENTITIOUSKING,
+        PAWN2
     }
 
     /**
@@ -476,75 +477,138 @@ public class ChessPiece {
      *
      * @return ArrayList of all positions this chess piece can move to
      */
-    public ArrayList<ChessMove> pawnMoves(ChessBoard board, ChessPosition startPosition){
+    private ArrayList<ChessMove> pawnMoves(ChessBoard board, ChessPosition startPosition){
         ArrayList<ChessMove> moves = new ArrayList<>();
         int row = startPosition.getRow();
         int col = startPosition.getColumn();
+        int[][] diagonals;
+        int penultimateRow;
+        int lastRow;
 
-        if (getTeamColor() == ChessGame.TeamColor.WHITE){
-            //This piece is WHITE
-            //set up diagonals
-            int[][] diagonals = {{1,1}, {1,-1}};
-
-            //Attacks
-            for(int[] diag : diagonals) {
-                int x = diag[0];
-                int y = diag[1];
-                ChessPosition newPosition = new ChessPosition(row + x, col + y);
-
-                if (isValidPosition(newPosition) && (board.getPiece(newPosition) != null && isDifferentColor(board, startPosition, newPosition))) {
-                    //Check conditions for promotion
-                    if (row == 7){
-                        moves.add(new ChessMove(startPosition, newPosition, getPawnType()));
-                    } else {
-                        moves.add(new ChessMove(startPosition, newPosition, null));
-                    }
-                }
-            }
-            //Get forward move
-            ChessPosition newPosition = new ChessPosition(row + 1, col);
-
-            if (isValidPosition(newPosition) && board.getPiece(newPosition) == null) {
-                //Check conditions for promotion
-                if (row == 7){
-                    moves.add(new ChessMove(startPosition, newPosition, getPawnType()));
-                } else {
-                    moves.add(new ChessMove(startPosition, newPosition, null));
-                }
-            }
+        if (getTeamColor() == ChessGame.TeamColor.WHITE) {
+            //White diagonals
+            diagonals = new int[][]{{1, 1}, {1, -1}};
+            penultimateRow = 9;
+            lastRow = 10;
         } else {
-            //This piece is BLACK
-            //Set up diagonals
-            int[][] diagonals = {{-1,1}, {-1,-1}};
+            // Black Diagonals:
+            diagonals = new int[][]{{-1, 1}, {-1, -1}};
+            penultimateRow = 2;
+            lastRow = 1;
+        }
 
-            for(int[] diag : diagonals) {
-                int x = diag[0];
-                int y = diag[1];
-                ChessPosition newPosition = new ChessPosition(row + x, col + y);
+        // If the pawn is already on the last row, then it is a Pawn of pawns and regular pawn moves do not apply
+        if (row == lastRow) {
+            return pawnOfPawnsMoves(board, startPosition, getTeamColor());
+        }
 
-                if (isValidPosition(newPosition) && (board.getPiece(newPosition) != null && isDifferentColor(board, startPosition, newPosition))) {
-                    //Check conditions for promotion
-                    if (row == 2){
-                        moves.add(new ChessMove(startPosition, newPosition, getPawnType()));
-                    } else {
-                        moves.add(new ChessMove(startPosition, newPosition, null));
-                    }
-                }
+        // Get attack moves
+        for(int[] diag : diagonals) {
+            int x = diag[0];
+            int y = diag[1];
+            ChessPosition newPosition = new ChessPosition(row + x, col + y);
+
+
+            // If the diagonal attack is not a valid position, empty, or the same color, then it cannot attack
+            if (!isValidPosition(newPosition) || board.getPiece(newPosition) == null || !isDifferentColor(board, startPosition, newPosition)) {
+                continue;
             }
-            //Get forward move
-            ChessPosition newPosition = new ChessPosition(row - 1, col);
 
-            if (isValidPosition(newPosition) && board.getPiece(newPosition) == null) {
-                //Check conditions for promotion
-                if (row == 2){
-                    moves.add(new ChessMove(startPosition, newPosition, getPawnType()));
-                } else {
-                    moves.add(new ChessMove(startPosition, newPosition, null));
+            if (getPawnType() == PieceType.PAWN2 && row == penultimateRow) {
+                /*
+                This is the second time the pawn of pawns has reached the end
+                If the pawn of kings spot is open, then it can move there
+                Black would move to (8,6) and white to (3,6)
+                If black, xValue gives us 8, if white, xValue gives us 3
+                 */
+                int xValue = 11 - penultimateRow + diagonals[0][0];
+                ChessPosition pawnKingSpot = new ChessPosition(xValue, 6);
+                if (board.getPiece(pawnKingSpot) == null) {
+                    moves.add(new ChessMove(startPosition, newPosition, PieceType.PAWN2));
                 }
+              //
+            } else if (row == penultimateRow) { // Check conditions for promotion
+                moves.add(new ChessMove(startPosition, newPosition, getPawnType()));
+            } else {
+                moves.add(new ChessMove(startPosition, newPosition, null));
+            }
+        }
+
+        // Get forward move
+        ChessPosition newPosition = new ChessPosition(row + diagonals[0][0], col);
+        if (isValidPosition(newPosition) && board.getPiece(newPosition) == null) {
+
+            if (getPawnType() == PieceType.PAWN2 && row == penultimateRow) {
+                /*
+                This is the second time the pawn of pawns has reached the end
+                If the pawn of kings spot is open, then it can move there
+                Black would move to (8,6) and white to (3,6)
+                If black, xValue gives us 8, if white, xValue gives us 3
+                 */
+                int xValue = 11 - penultimateRow + diagonals[0][0];
+                ChessPosition pawnKingSpot = new ChessPosition(xValue, 6);
+                if (board.getPiece(pawnKingSpot) == null) {
+                    moves.add(new ChessMove(startPosition, newPosition, PieceType.PAWN2));
+                }
+            } else if (row == penultimateRow) { // Check conditions for promotion
+                moves.add(new ChessMove(startPosition, newPosition, getPawnType()));
+            } else {
+                moves.add(new ChessMove(startPosition, newPosition, null));
             }
         }
         return moves;
     }
+
+
+    /**
+     * Pawn of Pawns can jump to a space attacking a piece of the opposing team if that piece is stuck.
+     *
+     *
+     * @return ArrayList of all positions this chess piece can move to
+     */
+    private ArrayList<ChessMove> pawnOfPawnsMoves(ChessBoard board, ChessPosition startPosition, ChessGame.TeamColor pawnColor) {
+        ArrayList<ChessMove> moves = new ArrayList<>();
+        // Iterate through the board, looking for all pieces of the opposite pieces
+        for (int x = 1; x <= 10; x++) {
+            for (int y = 1; y <= 11; y++) {
+                ChessPiece potentialPiece = board.getPiece(new ChessPosition(x,y));
+
+                // If the square is empty or the potential piece is the same color, then skip it
+                if (potentialPiece == null || potentialPiece.getTeamColor() == pawnColor) {
+                    continue;
+                }
+
+                // If the potential piece has moves, then skip it
+                if (!potentialPiece.pieceMoves(board, new ChessPosition(x,y)).isEmpty()) {
+                    //moves.add(new ChessMove(startPosition, new ChessPosition(10,11), null));
+                    continue;
+                }
+                //moves.add(new ChessMove(startPosition, new ChessPosition(9,11), null));
+
+                /*
+                 If the pawn is white, look at the lower two diagonals to the piece to attack
+                 If the pawn is black, look at the two higher diagonals
+                 */
+                int direction = 1;
+                if (pawnColor == ChessGame.TeamColor.WHITE) {
+                    direction = -1;
+                }
+
+                int[][] diagonals = {{x + direction, y + 1}, {x + direction, y - 1}};
+
+                // Add move if diagonal square is empty
+                for (int[] diagonal : diagonals) {
+                    ChessPosition diagonalPosition = new ChessPosition(diagonal[0],diagonal[1]);
+                    if (isValidPosition(diagonalPosition) && board.getPiece(diagonalPosition) == null) {
+                        moves.add(new ChessMove(startPosition, diagonalPosition, PieceType.PAWN));
+                    }
+                }
+            }
+        }
+
+        return moves;
+    }
+
 
     /**
      * @return boolean of the colors of two positions
