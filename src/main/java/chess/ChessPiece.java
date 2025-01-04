@@ -331,7 +331,7 @@ public class ChessPiece {
                 newPosition = new ChessPosition(row + x, col + y);
             }
 
-            if (isValidPosition(newPosition) && isDifferentColor(board, startPosition, newPosition)){
+            if (isValidPosition(newPosition) && isDifferentColor(board, startPosition, newPosition) && x*y != 1 && x*y != -1){
                 moves.add(new ChessMove(startPosition, newPosition, null));
             }
         }

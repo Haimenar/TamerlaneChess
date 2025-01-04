@@ -76,4 +76,23 @@ public class PicketMoveTests {
         );
     }
 
+    @Test
+    public void picketBlocked2() {
+        validateMoves("""
+                        | | | | | | | | | | | |
+                        | | | | | | | | | | | |
+                        | | | | | | | | | | | |
+                        | | | |r| | | |v| | | |
+                        | | | | |V| |M| | | | |
+                        | | | | | |p| | | | | |
+                        | | | | | | |K| | | | |
+                        | | | |m| | | | | | | |
+                        | | | | | | | | | | | |
+                        | | | | | | | | | | | |
+                        """,
+                new ChessPosition(5, 6),
+                new int[][]{}
+        );
+    }
+
 }
