@@ -5,10 +5,10 @@ import org.junit.jupiter.api.Test;
 
 import static passoff.chess.TestUtilities.validateMoves;
 
-public class CounsellorMoveTests {
+public class GeneralMoveTests {
 
     @Test
-    public void counsellorMoveUntilEdge() {
+    public void generalMoveUntilEdge() {
         validateMoves("""
                         | | | | | | | | | | | |
                         | | | | | | | | | | | |
@@ -22,13 +22,13 @@ public class CounsellorMoveTests {
                         | | | | | | | | | | | |
                         """,
                 new ChessPosition(3, 6),
-                new int[][]{{4, 6}, {3, 7}, {2, 6}, {3, 5}}
+                new int[][]{{4, 7}, {2, 7}, {2, 5}, {4, 5}}
         );
     }
 
 
     @Test
-    public void counsellorCaptureEnemy() {
+    public void generalCaptureEnemy() {
         validateMoves("""
                         | | | | | | | | | | | |
                         | | | | | | | | | | | |
@@ -36,19 +36,19 @@ public class CounsellorMoveTests {
                         | | | | | | | | | | | |
                         | | | | | | | | | | | |
                         | | | | | | | | | | | |
-                        | | | | | |c| | | | | |
+                        | | | | |k|c| | | | | |
                         | | | | |m|C|L| | | | |
-                        | | | | | |o| | | | | |
+                        | | | | |L|o|l| | | | |
                         | | | | | | | | | | | |
                         """,
                 new ChessPosition(3, 6),
-                new int[][]{{4, 6}, {3, 5}, {2,6}}
+                new int[][]{{4, 5}, {4, 7}, {2,7}}
         );
     }
 
 
     @Test
-    public void counsellorBlocked() {
+    public void generalBlocked() {
         validateMoves("""
                         | | | | | | | | | |r|c|
                         | | | | | | | | | |o|o|

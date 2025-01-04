@@ -30,7 +30,7 @@ public class TestUtilities {
 
     final static Map<Character, ChessPiece.PieceType> CHAR_TO_TYPE_MAP = Map.ofEntries(
             entry('k', ChessPiece.PieceType.KING),
-            entry('c', ChessPiece.PieceType.COUNSELLOR),
+            entry('c', ChessPiece.PieceType.GENERAL),
             entry('v', ChessPiece.PieceType.VIZIER),
             entry('g', ChessPiece.PieceType.GIRAFFE),
             entry('p', ChessPiece.PieceType.PICKET),
@@ -51,7 +51,7 @@ public class TestUtilities {
         ChessPiece.PieceType[] pawnTypeArray = {
                 ChessPiece.PieceType.PAWN, ChessPiece.PieceType.WARMACHINE,
                 ChessPiece.PieceType.CAMEL, ChessPiece.PieceType.ELEPHANT,
-                ChessPiece.PieceType.COUNSELLOR, ChessPiece.PieceType.KING,
+                ChessPiece.PieceType.GENERAL, ChessPiece.PieceType.KING,
                 ChessPiece.PieceType.VIZIER, ChessPiece.PieceType.GIRAFFE,
                 ChessPiece.PieceType.PICKET, ChessPiece.PieceType.KNIGHT,
                 ChessPiece.PieceType.ROOK

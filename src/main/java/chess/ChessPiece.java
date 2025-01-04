@@ -46,7 +46,7 @@ public class ChessPiece {
      */
     public enum PieceType {
         KING,
-        COUNSELLOR,
+        GENERAL,
         VIZIER,
         GIRAFFE,
         PICKET,
@@ -91,7 +91,7 @@ public class ChessPiece {
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition piecePosition) {
         return switch (type) {
             case KING -> kingMoves(board, piecePosition);
-            case COUNSELLOR -> counsellorMoves(board, piecePosition);
+            case GENERAL -> generalMoves(board, piecePosition);
             case VIZIER -> vizierMoves(board, piecePosition);
             case GIRAFFE -> giraffeMoves(board, piecePosition);
             case PICKET -> picketMoves(board, piecePosition);
@@ -188,11 +188,11 @@ public class ChessPiece {
      *
      * @return ArrayList of all positions this chess piece can move to
      */
-    private ArrayList<ChessMove> counsellorMoves(ChessBoard board, ChessPosition startPosition) {
+    private ArrayList<ChessMove> generalMoves(ChessBoard board, ChessPosition startPosition) {
         ArrayList<ChessMove> moves = new ArrayList<>();
         int row = startPosition.getRow();
         int col = startPosition.getColumn();
-        int[][] spots = {{1,0}, {-1,0}, {0,1}, {0,-1}};
+        int[][] spots = {{1,1}, {-1,1}, {1,-1}, {-1,-1}};
 
         for(int[] spot : spots){
             int x = spot[0];
