@@ -16,6 +16,11 @@ public class ChessBoardUI {
     private static final int COLS = 11;
     private final GridPane boardTiles;
     private final ChessGame chessGame;
+    private final Color lightTileColor = Color.DIMGREY;
+    private final Color darkTileColor = Color.BLANCHEDALMOND;
+    private final Color selectedTileColor = Color.LIGHTGREY;
+    private final Color possibleMoveTileColor = Color.LIGHTBLUE;
+
 
     public ChessBoardUI(ChessGame chessGame) {
         this.boardTiles = new GridPane();
@@ -31,7 +36,7 @@ public class ChessBoardUI {
             for (int col = 0; col < COLS; col++) {
                 StackPane tile = new StackPane();
                 Rectangle background = new Rectangle(TILE_SIZE, TILE_SIZE);
-                background.setFill((row + col) % 2 == 0 ? Color.LIGHTGREY : Color.BEIGE);
+                background.setFill((row + col) % 2 == 0 ? darkTileColor : lightTileColor);
                 tile.getChildren().add(background);
                 int finalRow = row;
                 int finalCol = col;
@@ -81,7 +86,7 @@ public class ChessBoardUI {
         resetTileColors();
 
         if (selectedPiece != null && selectedPiece.getTeamColor() == chessGame.getTeamTurn()) {
-            background.setFill(Color.LIGHTCYAN);
+            background.setFill(selectedTileColor);
 
             Collection<ChessMove> possibleMoves = chessGame.validMoves(clickedPosition);
 
@@ -93,7 +98,7 @@ public class ChessBoardUI {
 
                 StackPane tile = (StackPane) boardTiles.getChildren().get(moveRow * COLS + moveCol);
                 Rectangle moveBackground = (Rectangle) tile.getChildren().getFirst(); // First child is the background
-                moveBackground.setFill(Color.LIGHTBLUE);
+                moveBackground.setFill(possibleMoveTileColor);
             }
         }
     }
@@ -106,7 +111,7 @@ public class ChessBoardUI {
             for (int col = 0; col < COLS; col++) {
                 StackPane tile = (StackPane) boardTiles.getChildren().get(row * COLS + col);
                 Rectangle background = (Rectangle) tile.getChildren().getFirst(); // First child is the background
-                background.setFill((row + col) % 2 == 0 ? Color.LIGHTGREY : Color.BEIGE);
+                background.setFill((row + col) % 2 == 0 ? darkTileColor : lightTileColor);
             }
         }
     }
