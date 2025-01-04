@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.layout.StackPane;
 
+import java.util.Collection;
 import java.util.Objects;
 
 public class ChessBoardUI {
@@ -21,6 +22,8 @@ public class ChessBoardUI {
         this.chessGame = chessGame;
         drawBoard();
         updateBoard();
+        //                tile.setOnMouseClicked(event -> handleTileClick(finalRow, finalCol));
+
     }
 
     private void drawBoard() {
@@ -30,10 +33,13 @@ public class ChessBoardUI {
                 Rectangle background = new Rectangle(TILE_SIZE, TILE_SIZE);
                 background.setFill((row + col) % 2 == 0 ? Color.LIGHTGREY : Color.BEIGE);
                 tile.getChildren().add(background);
+                int finalRow = row;
+                int finalCol = col;
+                tile.setOnMouseClicked(_ -> handleTileClick(finalRow, finalCol, background));
+
                 boardTiles.add(tile, col, row);
             }
         }
-        System.out.print(chessGame.getBoard());
     }
 
     /**
@@ -42,10 +48,7 @@ public class ChessBoardUI {
     public void updateBoard() {
         for (int row = 1; row <= ROWS; row++) {
             for (int col = 1; col <= COLS; col++) {
-                System.out.println("Row: " + row + " column: " + col);
-                System.out.println("Full: " +((row - 1)*COLS + (col - 1)));
                 ChessPiece piece = chessGame.getBoard().getPiece(new ChessPosition(row, col));
-                System.out.println(piece);
                 if (piece == null) {
                     continue;
                 }
@@ -63,6 +66,47 @@ public class ChessBoardUI {
                 // Add the piece to the corresponding tile
                 StackPane tile = (StackPane) boardTiles.getChildren().get((-row + 10) * COLS + (col - 1));
                 tile.getChildren().add(pieceView);
+            }
+        }
+    }
+
+
+
+    /**
+     * Handles what happens when a tile is clicked
+     */
+    private void handleTileClick(int row, int col, Rectangle background) {
+        ChessPosition clickedPosition = new ChessPosition(10 - row, col + 1);
+        ChessPiece selectedPiece = chessGame.getBoard().getPiece(clickedPosition);
+        resetTileColors();
+
+        if (selectedPiece != null && selectedPiece.getTeamColor() == chessGame.getTeamTurn()) {
+            background.setFill(Color.LIGHTCYAN);
+
+            Collection<ChessMove> possibleMoves = chessGame.validMoves(clickedPosition);
+
+            // Select all tiles that this piece can move to
+            for (ChessMove move : possibleMoves) {
+                ChessPosition movePosition = move.getEndPosition();
+                int moveRow = 10 - movePosition.getRow(); // Convert to 0-based indexing
+                int moveCol = movePosition.getColumn() - 1;
+
+                StackPane tile = (StackPane) boardTiles.getChildren().get(moveRow * COLS + moveCol);
+                Rectangle moveBackground = (Rectangle) tile.getChildren().getFirst(); // First child is the background
+                moveBackground.setFill(Color.LIGHTBLUE);
+            }
+        }
+    }
+
+    /**
+     * Resets the colors of all tiles to their default
+     */
+    private void resetTileColors() {
+        for (int row = 0; row < ROWS; row++) {
+            for (int col = 0; col < COLS; col++) {
+                StackPane tile = (StackPane) boardTiles.getChildren().get(row * COLS + col);
+                Rectangle background = (Rectangle) tile.getChildren().getFirst(); // First child is the background
+                background.setFill((row + col) % 2 == 0 ? Color.LIGHTGREY : Color.BEIGE);
             }
         }
     }
