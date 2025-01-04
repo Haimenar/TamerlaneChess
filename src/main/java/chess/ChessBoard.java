@@ -73,7 +73,7 @@ public class ChessBoard {
             ChessPiece.PieceType[] middleRowPieces = {
                     ChessPiece.PieceType.ROOK, ChessPiece.PieceType.KNIGHT,
                     ChessPiece.PieceType.PICKET, ChessPiece.PieceType.GIRAFFE,
-                    ChessPiece.PieceType.COUNSELLOR, ChessPiece.PieceType.KING,
+                    ChessPiece.PieceType.GENERAL, ChessPiece.PieceType.KING,
                     ChessPiece.PieceType.VIZIER, ChessPiece.PieceType.GIRAFFE,
                     ChessPiece.PieceType.PICKET, ChessPiece.PieceType.KNIGHT,
                     ChessPiece.PieceType.ROOK};
@@ -88,7 +88,7 @@ public class ChessBoard {
             ChessPiece.PieceType[] pawnTypeArray = {
                     ChessPiece.PieceType.PAWN, ChessPiece.PieceType.WARMACHINE,
                     ChessPiece.PieceType.CAMEL, ChessPiece.PieceType.ELEPHANT,
-                    ChessPiece.PieceType.COUNSELLOR, ChessPiece.PieceType.PRINCE,
+                    ChessPiece.PieceType.GENERAL, ChessPiece.PieceType.PRINCE,
                     ChessPiece.PieceType.VIZIER, ChessPiece.PieceType.GIRAFFE,
                     ChessPiece.PieceType.PICKET, ChessPiece.PieceType.KNIGHT,
                     ChessPiece.PieceType.ROOK};
