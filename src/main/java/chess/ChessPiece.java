@@ -583,7 +583,6 @@ public class ChessPiece {
                     //moves.add(new ChessMove(startPosition, new ChessPosition(10,11), null));
                     continue;
                 }
-                //moves.add(new ChessMove(startPosition, new ChessPosition(9,11), null));
 
                 /*
                  If the pawn is white, look at the lower two diagonals to the piece to attack

@@ -7,21 +7,27 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class ChessUI extends Application {
-    @Override
-    public void start(Stage primaryStage) {
-        BorderPane root = new BorderPane();
-        Scene scene = new Scene(root, 1000, 800);
-        primaryStage.setTitle("Tamerlane Chess");
-        primaryStage.setScene(scene);
-
-        ChessBoardUI chessBoardUI = new ChessBoardUI();
-        StackPane chessBoardContainer = new StackPane(chessBoardUI.getBoard());
-        root.setCenter(chessBoardContainer);
-
-        primaryStage.show();
-    }
 
     public static void main(String[] args) {
         launch(args);
     }
+
+    @Override
+    public void start(Stage primaryStage) {
+        ChessGame chessGame = new ChessGame();
+
+        ChessBoardUI chessBoardUI = new ChessBoardUI(chessGame);
+        StackPane chessBoardContainer = new StackPane(chessBoardUI.getBoard());
+
+        BorderPane root = new BorderPane();
+        root.setCenter(chessBoardContainer);
+
+        Scene scene = new Scene(root,800, 800);
+
+        primaryStage.setTitle("Tamerlane Chess");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+
 }
