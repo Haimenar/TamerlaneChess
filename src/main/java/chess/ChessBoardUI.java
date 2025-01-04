@@ -18,8 +18,9 @@ public class ChessBoardUI {
     private final ChessGame chessGame;
     private final Color lightTileColor = Color.DIMGREY;
     private final Color darkTileColor = Color.BLANCHEDALMOND;
-    private final Color selectedTileColor = Color.LIGHTGREY;
+    private final Color selectedTileColor = Color.CADETBLUE;
     private final Color possibleMoveTileColor = Color.LIGHTBLUE;
+    private ChessPosition selectedPosition = null;
 
 
     public ChessBoardUI(ChessGame chessGame) {
@@ -27,8 +28,6 @@ public class ChessBoardUI {
         this.chessGame = chessGame;
         drawBoard();
         updateBoard();
-        //                tile.setOnMouseClicked(event -> handleTileClick(finalRow, finalCol));
-
     }
 
     private void drawBoard() {
@@ -48,47 +47,74 @@ public class ChessBoardUI {
     }
 
     /**
-     * Updates the chessboard graphic based on the board state
+     * Updates the entire chessboard graphic based on the board state
      */
     public void updateBoard() {
         for (int row = 1; row <= ROWS; row++) {
             for (int col = 1; col <= COLS; col++) {
-                ChessPiece piece = chessGame.getBoard().getPiece(new ChessPosition(row, col));
-                if (piece == null) {
-                    continue;
-                }
-                // Set the piece image. If it is a pawn, then add _{pawnType} to the end of file name
-                Image pieceImage;
-                if (piece.getPawnType() != null) {
-                    pieceImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/assets/" + piece.getTeamColor() + "_" + piece.getPieceType() + "_" + piece.getPawnType() + ".png")));
-                } else {
-                    pieceImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/assets/" + piece.getTeamColor() + "_" + piece.getPieceType() + ".png")));
-                }
-
-                ImageView pieceView = new ImageView(pieceImage);
-                pieceView.setFitWidth(TILE_SIZE);
-                pieceView.setFitHeight(TILE_SIZE);
-                // Add the piece to the corresponding tile
+                // Get the corresponding tile
                 StackPane tile = (StackPane) boardTiles.getChildren().get((-row + 10) * COLS + (col - 1));
-                tile.getChildren().add(pieceView);
+
+                // Remove the existing piece
+                tile.getChildren().removeIf(node -> node instanceof ImageView);
+
+                // Get the piece at the current position
+                ChessPiece piece = chessGame.getBoard().getPiece(new ChessPosition(row, col));
+                if (piece != null) {
+                    // Set the piece image
+                    Image pieceImage;
+                    if (piece.getPawnType() != null) {
+                        pieceImage = new Image(Objects.requireNonNull(
+                                getClass().getResourceAsStream("/assets/" + piece.getTeamColor() + "_" + piece.getPieceType() + "_" + piece.getPawnType() + ".png")
+                        ));
+                    } else {
+                        pieceImage = new Image(Objects.requireNonNull(
+                                getClass().getResourceAsStream("/assets/" + piece.getTeamColor() + "_" + piece.getPieceType() + ".png")
+                        ));
+                    }
+                    ImageView pieceView = new ImageView(pieceImage);
+                    pieceView.setFitWidth(TILE_SIZE);
+                    pieceView.setFitHeight(TILE_SIZE);
+
+                    // Add the piece to the tile
+                    tile.getChildren().add(pieceView);
+                }
             }
         }
     }
-
-
 
     /**
      * Handles what happens when a tile is clicked
      */
     private void handleTileClick(int row, int col, Rectangle background) {
         ChessPosition clickedPosition = new ChessPosition(10 - row, col + 1);
-        ChessPiece selectedPiece = chessGame.getBoard().getPiece(clickedPosition);
+        ChessPiece clickedPiece = chessGame.getBoard().getPiece(clickedPosition);
+        Collection<ChessMove> possibleMoves = chessGame.validMoves(clickedPosition);
         resetTileColors();
 
-        if (selectedPiece != null && selectedPiece.getTeamColor() == chessGame.getTeamTurn()) {
-            background.setFill(selectedTileColor);
+        // If there is already a piece selected, check if a new move is being made
+        if (selectedPosition != null && (clickedPiece == null || clickedPiece.getTeamColor() != chessGame.getTeamTurn())) {
+            Collection<ChessMove> moves = chessGame.validMoves(selectedPosition);
+            System.out.println(moves);
+            // Iterate through moves and see if they work
+            for (ChessMove move : moves) {
+                if (move.getEndPosition().equals(clickedPosition)) {
+                    System.out.println("Move attempted");
+                    try {
+                        chessGame.makeMove(new ChessMove(selectedPosition, clickedPosition, move.getPromotionPiece()));
+                        updateBoard();
+                        System.out.println("Move made");
+                    } catch (InvalidMoveException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
 
-            Collection<ChessMove> possibleMoves = chessGame.validMoves(clickedPosition);
+        }
+        // If the clicked tile is the player's own piece, show the available moves
+        if (clickedPiece != null && clickedPiece.getTeamColor() == chessGame.getTeamTurn()) {
+            selectedPosition = clickedPosition;
+            background.setFill(selectedTileColor);
 
             // Select all tiles that this piece can move to
             for (ChessMove move : possibleMoves) {
