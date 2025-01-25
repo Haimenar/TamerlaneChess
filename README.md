@@ -1,5 +1,5 @@
 # Tamerlane Chess
-A modern implementation of the medieval Tamerlane Chess variant. Featuring a custom chess engine.
+A modern implementation of the medieval Tamerlane Chess variant featuring a custom chess engine.
 
 ## What I've Learned
 Debugging and writing unit tests.
